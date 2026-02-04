@@ -1,0 +1,127 @@
+{
+   "log": {
+      "disabled": false,
+      "level": "error"
+   },
+   "dns": {
+      "servers": [
+      {
+        "type": "tcp",
+        "tag": "local",
+        "server": "8.8.8.8"
+      }
+    ]
+   },
+   "inbounds": [
+      {
+         "type": "socks",
+         "tag": "socks-in",
+         "listen": "127.0.0.1",
+         "listen_port": 31730
+      },
+      {
+         "type": "tun",
+         "tag": "tun-in",
+         "interface_name": "tun0",
+         "address": [
+            "172.19.0.1/30",
+            "fdfe:dcba:9876::1/126"
+         ],
+         "mtu": 1500,
+         "auto_route": true, 
+         "strict_route": false,
+         "stack": "system",
+         "sniff": true,
+         "sniff_override_destination": true,
+         "domain_strategy": "prefer_ipv4"
+      }
+   ],
+   "outbounds": [
+      {
+         "type": "vless",
+         "tag": "vless2",
+         "server": "285.x34.67.65",
+         "server_port": 8443,
+         "uuid": "<<==uuid==>>",
+         "tcp_keep_alive": "30m",
+         "tcp_keep_alive_interval": "300s",
+         "domain_resolver": {
+            "server": "local",
+            "strategy": "prefer_ipv4"
+         },
+         "tls": {
+            "enabled": true,
+            "utls": {
+               "enabled": true,
+               "fingerprint": "chrome"
+            },
+            "server_name": "",
+            "insecure": true
+         }
+      },
+      {
+         "type": "direct",
+         "tag": "direct"
+      }
+   ],
+   "route": {
+      "auto_detect_interface": true,
+      "rules": [
+         {
+            "inbound": "socks-in",
+            "outbound": "vless2"
+         },
+         {
+            "outbound": "vless2",
+            "process_name": [
+               "RobloxPlayerBeta.exe",
+               "RobloxStudioInstaller.exe"
+            ]
+         },
+         {            
+            "outbound": "vless2",
+            "domain_regex": [
+               "(^|\\.)gemini\\.google\\.com$",
+               "(^|\\.)ifconfig\\.me$",
+               "(^|\\.)chatgpt\\.com$",
+               "(^|\\.)openai\\.com$",
+               "(^|\\.)doubleclick\\.net$",
+               "(^|\\.)youtube\\.com$",
+               "(^|\\.)googlevideo\\.com$",
+               "(^|\\.)ggpht\\.com$",
+               "(^|\\.)ytimg\\.com$",
+               "(^|\\.)chromestatus\\.com$",
+               "(^|\\.)seasonvar\\.ru$",
+               "(^|\\.)angrycdn\\.net$",
+               "(^|\\.)googleadservices\\.com$",
+               "(^|\\.)line\\.me$",
+               "(^|\\.)play\\.google\\.",
+               "(^|\\.)rutracker\\.",
+               "(^|\\.)new-rutor\\.org$",
+               "(^|\\.)onlinesim\\.io$",
+               "(^|\\.)facebook\\.com$",
+               "(^|\\.)facebook\\.net$",
+               "(^|\\.)fbcdn\\.net$",
+               "(^|\\.)instagram\\.com$",
+               "(^|\\.)tinder\\.com$",
+               "(^|\\.)thepiratebay\\.org$",
+               "(^|\\.)torproject\\.org$",
+               "(^|\\.)roblox\\.com$",
+               "(^|\\.)rbxcdn\\.com$",
+               "(^|\\.)ipecho\\.io$"
+            ]
+         },
+         {
+            "protocol": "dns",
+            "action": "hijack-dns"
+         },
+         {
+            "protocol": "socks5",
+            "outbound": "direct"
+         }   
+    
+      ],
+      "final": "direct",
+      "default_domain_resolver": "local"
+   }
+}
