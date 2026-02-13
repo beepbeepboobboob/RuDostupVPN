@@ -40,7 +40,7 @@
       {
          "type": "vless",
          "tag": "vless2",
-         "server": "77.x39.2x0.258",
+         "server": "5.282.x0.24",
          "server_port": 8443,
          "uuid": "<<==uuid==>>",
          "tcp_keep_alive": "30m",
