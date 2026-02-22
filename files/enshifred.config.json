@@ -75,7 +75,8 @@
             "outbound": "vless2",
             "process_name": [
                "RobloxPlayerBeta.exe",
-               "RobloxStudioInstaller.exe"
+               "RobloxStudioInstaller.exe",
+               "Telegram.exe"
             ]
          },
          {            
