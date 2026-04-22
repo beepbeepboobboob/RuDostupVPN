@@ -72,11 +72,20 @@
             "outbound": "vless2"
          },
          {
-            "outbound": "vless2",
+            "outbound": "vless3",
             "process_name": [
                "RobloxPlayerBeta.exe",
                "RobloxStudioInstaller.exe",
-               "Telegram.exe"
+               "Telegram.exe",
+               "RobloxPlayerInstaller.exe",
+               "RobloxCrashHandler.exe",
+               "Roblox.exe"
+            ]
+         },
+         {
+            "outbound": "vless3",
+            "process_path_regex": [
+				".+Roblox.+\\.exe$"
             ]
          },
          {            
